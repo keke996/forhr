@@ -329,7 +329,7 @@ class IndexController extends Controller {
      */
     public function expJifen(){//导出Excel
         $this->isadmin();
-        $xlsName  = "完美在线员工积分表";
+        $xlsName  = "KEKE996员工积分表";
         $xlsCell  = array(
         array('id','账号序列'),
         array('bumen','部门'),
@@ -451,7 +451,7 @@ class IndexController extends Controller {
      */
     public function expUser(){//导出Excel
         $this->isadmin();
-        $xlsName  = "完美在线员工表";
+        $xlsName  = "KEKE996员工表";
         $xlsCell  = array(
         array('id','账号序列'),
         array('bumen','部门'),
