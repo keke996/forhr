@@ -1,0 +1,97 @@
+<extend name="muban" />
+<block name="neirong">
+<div class="span9">
+	<div class="content">
+
+		<div class="module">
+			<div class="module-head">
+				<h3>积分列表</h3>
+				
+			</div>
+			<div class="module-head">
+				
+				<form action="{:U('Index/impJifen')}" method="post" enctype="multipart/form-data">
+					<input type="file"  name="import"/>
+					<input type="submit"  value="积分批量导入"/>
+				</form>
+			</div>
+			<div class="module-body">
+				<table class="table table-striped datatable-1">
+					<thead>
+					<tr>
+						
+						<th>部门</th>
+						<th>姓名</th>
+						<th>积分</th>
+						<th>操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					<foreach name="list" item="v" >
+						<tr>
+							
+							<td>{$v['bumen']}</td>
+							<td>{$v['name']}</td>
+							<td>{$v['jifen']}</td>
+							<td>
+								<a href="{:U('Index/jifenDetail',array('id'=>$v['id']))}" class="btn btn-primary">查看积分详情</a>
+							</td>
+						</tr>
+					</foreach>
+					
+					</tbody>
+				</table>
+				<div style="text-align: right;padding:10px">
+					<a href="{:U('Index/expJifen')}" class="btn btn-large btn-success" style="">导出所有员工积分情况</a>
+				</div>
+				<br>
+			</div>
+		</div>
+
+	<br />
+		
+	</div><!--/.content-->
+</div>
+</block>
+
+<block name="foot">
+	<div class="footer">
+		<div class="container">
+			<b class="copyright">&copy;完美在线 </b>
+		</div>
+	</div>
+
+	<script src="__PUBLIC__/scripts/jquery-1.9.1.min.js"></script>
+	<script src="__PUBLIC__/scripts/jquery-ui-1.10.1.custom.min.js"></script>
+	<script src="__PUBLIC__/bootstrap/js/bootstrap.min.js"></script>
+	<script src="__PUBLIC__/scripts/datatables/jquery.dataTables.js"></script>
+	<!-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+	<script>
+		$(document).ready(function() {
+			$('.datatable-1').dataTable(
+				{ 
+					"oLanguage": { 
+					"sLengthMenu": "每页显示 _MENU_ 条记录", 
+					"sZeroRecords": "抱歉， 没有找到", 
+					"sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据", 
+					"sInfoEmpty": "没有数据", 
+					"sInfoFiltered": "(从 _MAX_ 条数据中检索)", 
+					"oPaginate": { 
+					"sFirst": "首页", 
+					"sPrevious": "前一页", 
+					"sNext": "后一页", 
+					"sLast": "尾页" 
+					}, 
+					"sZeroRecords": "没有检索到数据", 
+					"sProcessing": "<img src='./loading.gif' />" 
+					} 
+				}
+			);
+			$('.dataTables_paginate').addClass("btn-group datatable-pagination");
+			$('.dataTables_paginate > a').wrapInner('<span />');
+			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+		} );
+	</script>
+	</block>
+</body>

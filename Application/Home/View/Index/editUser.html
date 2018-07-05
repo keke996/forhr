@@ -1,0 +1,87 @@
+﻿<extend name="muban" />
+<block name="neirong">
+<div class="span9">
+	<div class="content">
+
+		<div class="module">
+			<div class="module-head">
+				<h3>员工管理</h3>
+			</div>
+			<div class="module-body">
+					<form action="{:U('Index/doEditUser')}" method="post" class="form-horizontal row-fluid">
+						
+						<input type="text" name="type" value="{$type}" style="display:none">
+						<input type="text" name="id" value="{$user.id}" style="display:none">
+						<div class="control-group">
+							<label class="control-label" for="name">姓名</label>
+							<div class="controls">
+								<input type="text" id="name" name="name" placeholder="请输入员工姓名" value="{$user.name}" class="span8">
+								<!-- <span class="help-inline">Minimum 5 Characters</span> -->
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="pwd">查询密码</label>
+							<div class="controls">
+								<input type="text" placeholder="查询密码" id="pwd" name="pwd" value="{$user.pwd}" data-original-title="" class="span8 tip">
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="bumen">部门</label>
+							<div class="controls">
+								<select tabindex="1" id="bumen" name="bumen" data-placeholder="请选择部门" class="span8">
+									<option value="技术部" <if condition="($user['bumen'] eq '技术部') "> selected</if> >技术部</option>
+									<option value="人事部" <if condition="($user['bumen'] eq '人事部') "> selected</if> >人事部</option>
+									<option value="企发部"  <if condition="($user['bumen'] eq '企发部') "> selected</if> >企发部</option>
+									<option value="增值业务部" <if condition="($user['bumen'] eq '增值业务部') "> selected</if> >增值业务部</option>
+									<option value="呼叫中心" <if condition="($user['bumen'] eq '呼叫中心') "> selected</if> >呼叫中心</option>
+									<option value="财务部" <if condition="($user['bumen'] eq '财务部') "> selected</if> >财务部</option>
+									<option value="总经理室" <if condition="($user['bumen'] eq '总经理室') "> selected</if> >总经理室</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="beizhu">备注</label>
+							<div class="controls">
+								<textarea class="span8" rows="5" id="beizhu" name="beizhu">{$user.beizhu}</textarea>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="ruzhi">入职时间</label>
+							<div class="controls">
+								<input type="date" id="ruzhi" name="ruzhi" style="height:2rem" value="{$user.ruzhi}">
+							</div>
+						</div>
+
+						<div class="control-group">
+							<div class="controls">
+								<button type="submit" class="btn btn-large btn-success">保存信息</button>
+							</div>
+						</div>
+					</form>
+			</div>
+		</div>
+
+		
+		
+	</div><!--/.content-->
+</div><!--/.span9-->
+</block>
+<block name="foot">
+	<div class="footer">
+		<div class="container">
+			 
+
+			<b class="copyright">&copy;完美在线 </b>
+		</div>
+	</div>
+
+	<script src="__PUBLIC__/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/scripts/flot/jquery.flot.js" type="text/javascript"></script>
+</block>
+</body>

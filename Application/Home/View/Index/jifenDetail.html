@@ -1,0 +1,130 @@
+<extend name="muban" />
+<block name="neirong">
+<div class="span9">
+	<div class="content">
+
+		<div class="module">
+			<div class="module-head">
+				<h2>{$userinfo['name']}-积分管理</h2>
+				<h3>部门:{$userinfo['bumen']}</h3>
+				<h3>总分:{$userinfo['jifen']}</h3>
+			</div>
+			<table class="table table-striped datatable-1">
+			<tr>
+				<form action="{:U('Index/doEditJifen')}" method="post" class="form-horizontal row-fluid">
+				<th><input id="date" type="date" name="date" style="height:2rem"placeholder="请选择时间" class="span2"></th>
+				<th>
+					<select tabindex="1" name="type" class="span1" data-placeholder="请选择操作类型">
+						<option value="1" selected >加</option>
+						<option value="2" >减</option>
+					</select>
+				</th>
+				<th><input type="number" name="num" style="height:2rem"placeholder="请输入更改的积分数值"></th>
+				<th><input type="text" name="beizhu" style="height:2rem"placeholder="请输入该操作的备注"></th>
+				<input type="number" name="uid" value= {$userinfo['id']} style="display:none">
+				<th><button type="submit" class="btn btn-large btn-success">确认操作</button></th>
+				</form>
+			</tr>
+			</table>
+			<div class="module-body">
+				
+				<table class="table table-striped datatable-1">
+					
+					<thead>
+					<tr>
+						<th class="span2" >操作时间</th>
+						<th>类型</th>
+						<th>数值</th>
+						<th>备注</th>
+					</tr>
+					</thead>
+					<tbody>
+					
+					<br>
+					<foreach name="list" item="v" >
+						<tr>
+							<td>{$v['date']}</td>
+							<td>
+								<if condition="$v['type'] == 1 ">加
+								<else /> 减
+								</if>
+							</td>
+							<td>{$v['num']}</td>
+							<td>{$v['beizhu']}</td>
+							
+						</tr>
+					</foreach>
+					
+					</tbody>
+				</table>
+				<br>
+			</div>
+		</div>
+
+	<br />
+		
+	</div><!--/.content-->
+</div>
+</block>
+
+<block name="foot">
+	<div class="footer">
+		<div class="container">
+			<b class="copyright">&copy;完美在线 </b>
+		</div>
+	</div>
+
+	<script src="__PUBLIC__/scripts/jquery-1.9.1.min.js"></script>
+	<script src="__PUBLIC__/scripts/jquery-ui-1.10.1.custom.min.js"></script>
+	<script src="__PUBLIC__/bootstrap/js/bootstrap.min.js"></script>
+	<script src="__PUBLIC__/scripts/datatables/jquery.dataTables.js"></script>
+	<!-- <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+	<script>
+		getNowFormatDate();
+		function getNowFormatDate() {
+			var date = new Date();
+			var seperator1 = "-";
+			var seperator2 = ":";
+			var month = date.getMonth() + 1;
+			var strDate = date.getDate();
+			if (month >= 1 && month <= 9) {
+				month = "0" + month;
+			}
+			if (strDate >= 0 && strDate <= 9) {
+				strDate = "0" + strDate;
+			}
+			var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+			document.getElementById('date').value = currentdate;
+			console.log(currentdate);
+		}
+
+
+
+		$(document).ready(function() {
+			$('.datatable-1').dataTable(
+				{ 
+					"oLanguage": { 
+					"sLengthMenu": "每页显示 _MENU_ 条记录", 
+					"sZeroRecords": "抱歉， 没有找到", 
+					"sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据", 
+					"sInfoEmpty": "没有数据", 
+					"sInfoFiltered": "(从 _MAX_ 条数据中检索)", 
+					"oPaginate": { 
+					"sFirst": "首页", 
+					"sPrevious": "前一页", 
+					"sNext": "后一页", 
+					"sLast": "尾页" 
+					}, 
+					"sZeroRecords": "没有检索到数据", 
+					"sProcessing": "<img src='./loading.gif' />" 
+					} 
+				}
+			);
+			$('.dataTables_paginate').addClass("btn-group datatable-pagination");
+			$('.dataTables_paginate > a').wrapInner('<span />');
+			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+		} );
+	</script>
+	</block>
+</body>
