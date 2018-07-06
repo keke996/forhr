@@ -79,15 +79,53 @@ class IndexController extends Controller {
         if(I('get.id')){
             $userinfo =  M('user')->where(array('isadmin'=>0,'id'=>I('get.id')))->order('bumen,ruzhi')->select();
             $this->assign('userinfo',$userinfo[0]);
-
+            
             $jifenlist = M('jifen')->where(array('uid'=>I('get.id')))->select();
             $this->assign('list',$jifenlist);
-            $this->display('Index/jifenDetail');  
+            $this->display('Index/jifenDetail');
         }else{
             $this->error('参数错误');
         }
         
     }
+
+    public function revokeJifen(){
+        $this->isadmin();
+        $jid = I('post.jid');
+        if($jid){
+            $data = M('jifen')->field('jid,uid,type,num')->where(array('jid'=>$jid))->find();
+            if($data){
+                if($data['type']==1){
+                    $result=M('user')->where(array('id'=>$data['uid']))->setDec('jifen',$data['num']);
+                }else{
+                    $result=M('user')->where(array('id'=>$data['uid']))->setInc('jifen',$data['num']);
+                }
+
+                if($result){
+                    $end = M('jifen')->where(array('jid'=>$jid))->delete();
+                }
+                $msg = '操作成功';
+                
+                $jifen = M('user')->field('jifen')->where(array('id'=>$data['uid']))->find();
+                $res = array('code'=>200,'msg'=>$msg,'jifen'=>$jifen['jifen']);
+
+            }else{
+                $msg = '记录不存在';
+                $res = array('code'=>100,'msg'=>$msg);
+
+            }
+
+
+            
+        }else{
+            $msg = '参数异常';
+            $res = array('code'=>300,'msg'=>$msg);
+            
+        }
+        $this->ajaxReturn($res);
+
+    }
+    
 
     public function doEditJifen(){
 
